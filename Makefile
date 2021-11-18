@@ -6,31 +6,42 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/17 21:22:19 by nlouro            #+#    #+#              #
-#    Updated: 2021/11/17 21:43:22 by nlouro           ###   ########.fr        #
+#    Updated: 2021/11/18 08:51:31 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = server
+SERVER = server
+CLIENT = client
 
 C_FLAGS = -Wall -Wextra -Werror
 
-C_FILES = server.c
+SRV_C_FILES = server.c
+CLN_C_FILES = client.c
 
-OBJ_FILES = $(C_FILES:%.c=%.o)
+SRV_OBJ_FILES = $(SRV_C_FILES:%.c=%.o)
+CLN_OBJ_FILES = $(CLN_C_FILES:%.c=%.o)
 
-all: $(NAME)
+all: $(SERVER) $(CLIENT)
+s: $(SERVER)
+c: $(CLIENT)
 
-$(NAME): $(OBJ_FILES)
-	gcc $(C_FLAGS) $(OBJ_FILES) -o $(NAME)
+$(SERVER): $(SRV_OBJ_FILES)
+	gcc $(C_FLAGS) $(SRV_OBJ_FILES) -o $(SERVER)
 
-$(OBJ_FILES): $(C_FILES)
-	gcc -c $(C_FLAGS) $(C_FILES)
+$(SRV_OBJ_FILES): $(C_FILES)
+	gcc -c $(C_FLAGS) $(SRV_C_FILES)
+
+$(CLIENT): $(CLN_OBJ_FILES)
+	gcc $(C_FLAGS) $(CLN_OBJ_FILES) -o $(CLIENT)
+
+$(CLN_OBJ_FILES): $(C_FILES)
+	gcc -c $(C_FLAGS) $(CLN_C_FILES)
+
 
 clean:
-	rm -f $(OBJ_FILES) 
+	rm -f $(SRV_OBJ_FILES) $(CLN_OBJ_FILES)
 
 fclean: clean
-	rm -f $(OBJ_FILES) 
-	rm -f $(NAME)
+	rm -f $(SERVER) $(CLIENT)
 
 re: fclean all
