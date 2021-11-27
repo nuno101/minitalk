@@ -6,11 +6,11 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/18 10:37:26 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/27 21:34:25 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "minitalk.h"
 
 int	send_msg(int pid, char *msg);
 
@@ -34,11 +34,28 @@ int	main(int argc, char *argv[])
 
 int	send_msg(int pid, char *msg)
 {
+int i;
+int j;
+
+	i = 0;
 	printf("msg: %s\n", msg);
-	//if (msg[0] == "1")
-	if (1)
-      kill(pid, SIGUSR1);
-    else
-      kill(pid, SIGUSR2);
+	while(msg[i] != '\0')
+	{
+	for(j = 7; j >= 0; --j)
+	{
+		if (msg[i] & (1 << j))
+			{
+			putchar('1');
+			kill(pid, SIGUSR1);
+			}
+		else
+			{
+			putchar('0');
+			kill(pid, SIGUSR2);
+			}
+			usleep(30);
+	}
+		i++;
+	}
 	return (0);
 }
