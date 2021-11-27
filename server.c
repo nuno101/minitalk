@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/27 21:32:44 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/27 23:56:24 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,23 @@
 
 void	binary2char(int bit)
 {
-	static ssize_t n;
-	static ssize_t sum;
+	static int n;
+	static int sum;
 
 	//printf("binary2char\n");
-	if (!n)
-		n = 7;
-	if (!sum)
-		sum = 0;
-	if (n >= 0)
+	if (!n) // n = 0
 	{
-		sum += pow(2, n) * bit;
-		printf("bit: %i n: %zi sum: %zi \n", bit, n, sum);
-		if (n < 0)
-		{
-			printf("%zi", sum);
-			printf("%zd", sum);
-			n = 7;
-			sum = 0;
-		}
-		n--;
+		//printf("setting n and sum \n");
+		n = 8;
+		sum = 0;
+	}
+	sum += pow(2, n - 1) * bit;
+	//printf("bit: %i n: %i sum: %i \n", bit, n, sum);
+	n--;
+	if (n == 0)	
+	{
+		//printf("%i %c\n", sum, sum);
+		write(1, &sum, 1);
 	}
 }
 

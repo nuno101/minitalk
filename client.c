@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/27 21:34:25 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/27 23:44:51 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ int j;
 	printf("msg: %s\n", msg);
 	while(msg[i] != '\0')
 	{
-	for(j = 7; j >= 0; --j)
-	{
-		if (msg[i] & (1 << j))
-			{
-			putchar('1');
-			kill(pid, SIGUSR1);
-			}
-		else
-			{
-			putchar('0');
-			kill(pid, SIGUSR2);
-			}
-			usleep(30);
-	}
+		for(j = 7; j >= 0; --j)
+		{
+			if (msg[i] & (1 << j))
+				{
+				putchar('1');
+				kill(pid, SIGUSR1);
+				}
+			else
+				{
+				putchar('0');
+				kill(pid, SIGUSR2);
+				}
+				usleep(30);
+		}
 		i++;
 	}
 	return (0);
