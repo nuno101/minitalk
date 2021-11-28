@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 21:45:34 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 11:03:35 by nlouro           ###   ########.fr       */
+/*   Created: 2021/08/24 16:19:41 by nlouro            #+#    #+#             */
+/*   Updated: 2021/08/26 14:02:35 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H 
-# define MINITALK_H 
-# include <unistd.h>
-# include <signal.h>
-# include <stdio.h> //printf
-# include <stdlib.h> //atoi and malloc
-# include "ft_atoi.c"
-# include "ft_itoa.c"
-//# include "ft_isdigit.c"
-//TODO replace math pow ith own function
-
-#endif
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+	{
+		return (c);
+	}
+	return (0);
+}
