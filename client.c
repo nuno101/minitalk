@@ -6,13 +6,14 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 11:07:35 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/28 17:51:55 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	send_msg(int pid, char *msg);
+int		send_msg(int pid, char *msg);
+void	handle_signal(int sig);
 
 int	main(int argc, char *argv[])
 {
@@ -26,7 +27,7 @@ int	main(int argc, char *argv[])
 	//printf("\ncmdline args=%d\n", argc);
 	if (argc != 3)
 	{
-		printf("\nERROR: wrong nr. of arguments. Call as follows:\nclient <pid> \"<message>\"\n");
+		printf("\nERROR: wrong nr. of arguments. Call as:\nclient <pid> \"<message>\"\n");
 		return (1);
 	}
 	//printf("\ncmdline arg=%s", argv[1]);
@@ -36,6 +37,12 @@ int	main(int argc, char *argv[])
 	printf("msg: %s\n", argv[2]);
 	m = send_msg(server_pid, argv[2]);
 	m = send_msg(server_pid, "\n");
+    while (1)
+    {
+        signal(SIGUSR1, handle_signal);
+        signal(SIGUSR2, handle_signal);
+        pause();
+    }
 	return (0);
 }
 
@@ -65,4 +72,17 @@ int	send_msg(int pid, char *msg)
 		i++;
 	}
 	return (0);
+}
+
+void	handle_signal(int sig)
+{
+	char msg[] = "Msg acklgd. Exiting.\n";
+
+	//printf("handle_signal\n");
+	if (sig == SIGUSR1)
+	{
+		write(1, msg, 21);
+		//printf("SIGUSR1 received.\n");
+		exit(0);
+	}
 }
