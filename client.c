@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 17:51:55 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/28 22:53:49 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char *argv[])
 	//printf("\ncmdline arg=%s", argv[1]);
 	server_pid = ft_atoi(argv[1]);
 	m = send_msg(server_pid, client);
-	m = send_msg(server_pid, " : ");
+	m = send_msg(server_pid, ":");
 	printf("msg: %s\n", argv[2]);
 	m = send_msg(server_pid, argv[2]);
 	m = send_msg(server_pid, "\n");

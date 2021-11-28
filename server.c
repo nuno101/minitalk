@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 10:22:08 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/28 23:51:56 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ void	binary2char(int bit)
 {
 	static int n;
 	static int sum;
+	static int pid;
+	static int pid_found;
 
 	//printf("binary2char\n");
 	if (!n) // n = 0
 	{
 		//printf("setting n and sum \n");
+		if (!pid)
+			pid_found = 0;
 		n = 8;
 		sum = 0;
 	}
@@ -31,7 +35,16 @@ void	binary2char(int bit)
 	if (n == 0)	
 	{
 		//printf("%i %c\n", sum, sum);
-		write(1, &sum, 1);
+		if (pid_found == 0)
+			if (sum == 58) // match : sent after client pid
+			{
+				pid_found = 1;
+				printf("pid %i\n", pid);
+			}
+			else
+				pid = pid * 10 + (sum - 48);
+		else
+			write(1, &sum, 1);
 	}
 }
 
