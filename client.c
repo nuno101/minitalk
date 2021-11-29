@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 22:53:49 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/11/30 00:27:32 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	main(int argc, char *argv[])
 	int	server_pid;
 	int m;
 	char *client;
+	char eot;
 
+	eot = 4;
 	client = ft_itoa(getpid());
 	printf("Client PID: %s\n", client);
 
@@ -36,7 +38,7 @@ int	main(int argc, char *argv[])
 	m = send_msg(server_pid, ":");
 	printf("msg: %s\n", argv[2]);
 	m = send_msg(server_pid, argv[2]);
-	m = send_msg(server_pid, "\n");
+	m = send_msg(server_pid, &eot);
     while (1)
     {
         signal(SIGUSR1, handle_signal);
@@ -83,6 +85,6 @@ void	handle_signal(int sig)
 	{
 		write(1, msg, 21);
 		//printf("SIGUSR1 received.\n");
-		exit(0);
+		exit(1);
 	}
 }
