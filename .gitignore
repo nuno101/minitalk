@@ -1,5 +1,6 @@
 client
 server
 chartobin.c
+.DS_Store
 *.swp
 *.o
