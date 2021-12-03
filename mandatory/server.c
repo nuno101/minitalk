@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/30 15:37:51 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 13:36:14 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(void)
 	ssize_t pid;
 
 	pid = getpid();	
-	printf("Server PID: %zi\n", pid);
+	ft_printf("Server PID: %i\n", pid);
 	while (1)
 	{
 		signal(SIGUSR1, handle_signal);

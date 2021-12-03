@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/30 15:44:39 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 13:56:14 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ int	main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		printf("\nERROR: wrong nr. of arguments. Call as:\nclient <pid> \"<message>\"\n");
+		ft_printf("\nERROR: wrong nr. of arguments. Call as:\nclient <pid> \"<message>\"\n");
 		return (1);
 	}
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
 	{
-		printf("\nERROR: pid is not a number\n");
+		ft_printf("\nERROR: pid is not a number\n");
 		return (2);
 	}
-	printf("msg sent: %s\n", argv[2]);
+	ft_printf("msg sent: %s\n", argv[2]);
 	send_msg(server_pid, argv[2]);
 	send_msg(server_pid, "\n");
 	return (0);
