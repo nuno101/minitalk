@@ -6,9 +6,11 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:55:35 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 15:33:51 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 11:16:04 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_atoi.h"
 
 static int	ft_isspace(int c)
 {

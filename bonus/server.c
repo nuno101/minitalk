@@ -6,31 +6,39 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/30 00:20:38 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 14:15:33 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <math.h>
 
+/*
+ * decode 8 bit binary encoded characters
+ * after each 8 bits received print the decoded character
+ */
 void	binary2char(int bit)
 {
 	static int n;
 	static int sum;
 	static int pid;
 	static int pid_found;
+	int	i;
+	int power;
 
-	//printf("binary2char\n");
+	//ft_printf("binary2char\n");
 	if (!n) // n = 0
 	{
-		//printf("setting n and sum \n");
+		//ft_printf("setting n and sum \n");
 		if (!pid)
 			pid_found = 0;
 		n = 8;
 		sum = 0;
 	}
-	sum += pow(2, n - 1) * bit;
-	//printf("bit: %i n: %i sum: %i \n", bit, n, sum);
+	power = 1;
+	for (i = 1; i <= n - 1; i++)
+		power = power * 2;
+	sum += power * bit;
+	//ft_printf("bit: %i n: %i sum: %i \n", bit, n, sum);
 	n--;
 	if (n == 0)	
 	{
@@ -38,7 +46,7 @@ void	binary2char(int bit)
 			if (sum == 58) // match : sent after client pid
 			{
 				pid_found = 1;
-				//printf("msg received from pid %i\n", pid);
+				//ft_printf("msg received from pid %i\n", pid);
 			}
 			else
 				pid = pid * 10 + (sum - 48);
@@ -55,23 +63,29 @@ void	binary2char(int bit)
 	}
 }
 
+/*
+ * pass received signals to binary2char for decoding
+ * SIGUSR1 is 1
+ * SIGUSR2 is 0
+ */
 void handle_signal(int sig)
 {
-	//printf("handle_signal\n");
+	//ft_printf("handle_signal\n");
 	if (sig == SIGUSR1)
-		//putchar('1');
 		binary2char(1);
 	else if (sig == SIGUSR2)
-		//putchar('0');
 		binary2char(0);
 }
 
+/*
+ * print own PID and wait for signals USR1 and USR2
+ */
 int	main(void)
 {
 	ssize_t pid;
 
 	pid = getpid();	
-	printf("Server PID: %zi\n", pid);
+	ft_printf("Server PID: %i\n", pid);
 	while (1)
 	{
 		signal(SIGUSR1, handle_signal);

@@ -4,3 +4,4 @@ chartobin.c
 .DS_Store
 *.swp
 *.o
+*.a

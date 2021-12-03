@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_atoi.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: nlouro <nlouro@student.42heilbronnde>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 21:45:34 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 13:56:26 by nlouro           ###   ########.fr       */
+/*   Created: 2021/12/03 11:11:59 by nlouro            #+#    #+#             */
+/*   Updated: 2021/12/03 11:20:02 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H 
-# define MINITALK_H 
-# include <unistd.h>
-# include <signal.h>
-# include "ft_isdigit.h"
-# include "ft_atoi.h"
-# include "ft_itoa.h"
-# include "ft_printf.h"
+#ifndef FT_ATOI_H
+# define FT_ATOI_H
+
+#include "ft_isdigit.h"
+
+int	ft_atoi(const char *str);
 
 #endif

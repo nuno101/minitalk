@@ -6,9 +6,11 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:43:34 by nlouro            #+#    #+#             */
-/*   Updated: 2021/11/28 10:59:15 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 11:20:46 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_itoa.h"
 
 static int	ft_nbrlen(int nb)
 {
