@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 14:15:33 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 16:43:23 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,39 @@
  */
 void	binary2char(int bit)
 {
-	static int n;
-	static int sum;
-	static int pid;
-	static int pid_found;
-	int	i;
-	int power;
+	static int	n;
+	static int	sum;
+	static int	pid;
+	static int	pid_found;
+	int			i;
+	int			power;
 
-	//ft_printf("binary2char\n");
-	if (!n) // n = 0
+	if (!n)
 	{
-		//ft_printf("setting n and sum \n");
 		if (!pid)
 			pid_found = 0;
 		n = 8;
 		sum = 0;
 	}
 	power = 1;
-	for (i = 1; i <= n - 1; i++)
+	i = 1;
+	while (i <= n - 1)
+	{
 		power = power * 2;
+		i++;
+	}
 	sum += power * bit;
-	//ft_printf("bit: %i n: %i sum: %i \n", bit, n, sum);
 	n--;
-	if (n == 0)	
+	if (n == 0)
 	{
 		if (pid_found == 0)
-			if (sum == 58) // match : sent after client pid
-			{
+		{
+			if (sum == 58)
 				pid_found = 1;
-				//ft_printf("msg received from pid %i\n", pid);
-			}
 			else
 				pid = pid * 10 + (sum - 48);
-		else if (sum == 4) // EOT
+		}
+		else if (sum == 4)
 		{
 			sum = 10;
 			write(1, &sum, 1);
@@ -68,9 +68,8 @@ void	binary2char(int bit)
  * SIGUSR1 is 1
  * SIGUSR2 is 0
  */
-void handle_signal(int sig)
+void	handle_signal(int sig)
 {
-	//ft_printf("handle_signal\n");
 	if (sig == SIGUSR1)
 		binary2char(1);
 	else if (sig == SIGUSR2)
@@ -82,9 +81,9 @@ void handle_signal(int sig)
  */
 int	main(void)
 {
-	ssize_t pid;
+	ssize_t	pid;
 
-	pid = getpid();	
+	pid = getpid();
 	ft_printf("Server PID: %i\n", pid);
 	while (1)
 	{

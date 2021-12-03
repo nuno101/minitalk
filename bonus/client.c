@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 14:26:02 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 16:38:12 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,21 @@
  */
 void	send_msg(int pid, char *msg)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(msg[i] != '\0')
+	while (msg[i] != '\0')
 	{
-		for(j = 7; j >= 0; --j)
+		j = 7;
+		while (j >= 0)
 		{
 			if (msg[i] & (1 << j))
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
 			usleep(30);
+			j--;
 		}
 		i++;
 	}
@@ -40,13 +42,13 @@ void	send_msg(int pid, char *msg)
 
 void	handle_signal(int sig)
 {
-	char msg[] = "Msg acklgd. Exiting.\n";
+	char	msg[] = "Msg acklgd. Exiting.\n";
 
-	//ft_printf("handle_signal\n");
+	ft_printf("handle_signal\n");
 	if (sig == SIGUSR1)
 	{
 		write(1, msg, 21);
-		//ft_printf("SIGUSR1 received.\n");
+		ft_printf("SIGUSR1 received.\n");
 		exit(1);
 	}
 }
@@ -56,37 +58,34 @@ void	handle_signal(int sig)
  */
 int	main(int argc, char *argv[])
 {
-	int	server_pid;
-	char *client;
-	char eot;
+	int		server_pid;
+	char	*client;
+	char	eot;
 
 	eot = 4;
 	client = ft_itoa(getpid());
 	ft_printf("Client PID: %s\n", client);
-
-	//ft_printf("\ncmdline args=%d\n", argc);
 	if (argc != 3)
 	{
-		ft_printf("\nERROR: wrong nr. of arguments. Call as:\nclient <pid> \"<message>\"\n");
+		ft_printf("\nERROR: wrong args. Call as:\nclient <pid> \"<message>\"\n");
 		return (1);
 	}
-	//ft_printf("\ncmdline arg=%s", argv[1]);
 	server_pid = ft_atoi(argv[1]);
-    if (server_pid <= 0)
-    {
-        ft_printf("\nERROR: pid is not a number\n");
-        return (2);
-    }
+	if (server_pid <= 0)
+	{
+		ft_printf("\nERROR: pid is not a number\n");
+		return (2);
+	}
 	ft_printf("msg sent: %s\n", argv[2]);
 	send_msg(server_pid, client);
 	send_msg(server_pid, ":");
 	send_msg(server_pid, argv[2]);
 	send_msg(server_pid, &eot);
-    while (1)
-    {
-        signal(SIGUSR1, handle_signal);
-        signal(SIGUSR2, handle_signal);
-        pause();
-    }
+	while (1)
+	{
+		signal(SIGUSR1, handle_signal);
+		signal(SIGUSR2, handle_signal);
+		pause();
+	}
 	return (0);
 }

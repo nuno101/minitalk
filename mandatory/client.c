@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 13:56:14 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 15:12:46 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,21 @@
  */
 void	send_msg(int pid, char *msg)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(msg[i] != '\0')
+	while (msg[i] != '\0')
 	{
-		for(j = 7; j >= 0; --j)
+		j = 7;
+		while (j >= 0)
 		{
 			if (msg[i] & (1 << j))
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
 			usleep(30);
+			j--;
 		}
 		i++;
 	}
@@ -47,7 +49,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		ft_printf("\nERROR: wrong nr. of arguments. Call as:\nclient <pid> \"<message>\"\n");
+		ft_printf("\nERROR: wrong args. Call as:\nclient <pid> \"<message>\"\n");
 		return (1);
 	}
 	server_pid = ft_atoi(argv[1]);

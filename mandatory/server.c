@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 13:36:14 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 15:21:25 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
  */
 void	binary2char(int bit)
 {
-	static int n;
-	static int sum;
-	int i;
-	int power;
+	static int	n;
+	static int	sum;
+	int			i;
+	int			power;
 
 	if (!n)
 	{
@@ -29,11 +29,15 @@ void	binary2char(int bit)
 		sum = 0;
 	}
 	power = 1;
-	for (i = 1; i <= n - 1; i++)
+	i = 1;
+	while (i <= n - 1)
+	{
 		power = power * 2;
+		i++;
+	}
 	sum += power * bit;
 	n--;
-	if (n == 0)	
+	if (n == 0)
 		write(1, &sum, 1);
 }
 
@@ -42,7 +46,7 @@ void	binary2char(int bit)
  * SIGUSR1 is 1
  * SIGUSR2 is 0
  */
-void handle_signal(int sig)
+void	handle_signal(int sig)
 {
 	if (sig == SIGUSR1)
 		binary2char(1);
@@ -55,9 +59,9 @@ void handle_signal(int sig)
  */
 int	main(void)
 {
-	ssize_t pid;
+	ssize_t	pid;
 
-	pid = getpid();	
+	pid = getpid();
 	ft_printf("Server PID: %i\n", pid);
 	while (1)
 	{

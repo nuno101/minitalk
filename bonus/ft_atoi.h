@@ -6,14 +6,13 @@
 /*   By: nlouro <nlouro@student.42heilbronnde>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:11:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 11:20:02 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 15:04:24 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_ATOI_H
 # define FT_ATOI_H
-
-#include "ft_isdigit.h"
+# include "ft_isdigit.h"
 
 int	ft_atoi(const char *str);
 
