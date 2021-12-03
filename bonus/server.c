@@ -6,11 +6,26 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 16:43:23 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 17:42:30 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	powerof2(int n)
+{
+	int	i;
+	int	power;
+
+	power = 1;
+	i = 1;
+	while (i <= n - 1)
+	{
+		power = power * 2;
+		i++;
+	}
+	return (power);
+}
 
 /*
  * decode 8 bit binary encoded characters
@@ -22,8 +37,6 @@ void	binary2char(int bit)
 	static int	sum;
 	static int	pid;
 	static int	pid_found;
-	int			i;
-	int			power;
 
 	if (!n)
 	{
@@ -32,14 +45,7 @@ void	binary2char(int bit)
 		n = 8;
 		sum = 0;
 	}
-	power = 1;
-	i = 1;
-	while (i <= n - 1)
-	{
-		power = power * 2;
-		i++;
-	}
-	sum += power * bit;
+	sum += powerof2(n) * bit;
 	n--;
 	if (n == 0)
 	{
