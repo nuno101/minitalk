@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 16:38:12 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/03 17:34:39 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,9 @@ void	send_msg(int pid, char *msg)
 
 void	handle_signal(int sig)
 {
-	char	msg[] = "Msg acklgd. Exiting.\n";
-
-	ft_printf("handle_signal\n");
 	if (sig == SIGUSR1)
 	{
-		write(1, msg, 21);
-		ft_printf("SIGUSR1 received.\n");
+		write(1, "SIGUSR1 received. Bye!\n", 24);
 		exit(1);
 	}
 }
