@@ -6,7 +6,7 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/17 21:22:19 by nlouro            #+#    #+#              #
-#    Updated: 2021/11/18 08:51:31 by nlouro           ###   ########.fr        #
+#    Updated: 2021/12/03 12:16:19 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CLIENT = client
 
 C_FLAGS = -Wall -Wextra -Werror
 
-SRV_C_FILES = server.c
-CLN_C_FILES = client.c
+SRV_C_FILES = server.c	ft_atoi.c	ft_isdigit.c	ft_itoa.c
+CLN_C_FILES = client.c	ft_atoi.c	ft_isdigit.c	ft_itoa.c
 
 SRV_OBJ_FILES = $(SRV_C_FILES:%.c=%.o)
 CLN_OBJ_FILES = $(CLN_C_FILES:%.c=%.o)
