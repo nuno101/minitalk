@@ -6,7 +6,7 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/17 21:22:19 by nlouro            #+#    #+#              #
-#    Updated: 2021/12/03 13:48:09 by nlouro           ###   ########.fr        #
+#    Updated: 2021/12/04 12:43:33 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ C_FLAGS = -Wall -Wextra -Werror
 FT_PRINTF_DIR = ../ft_printf
 FT_PRINTF_OBJ = libftprintf.a
 
-SRV_C_FILES = server.c	ft_atoi.c	ft_isdigit.c	ft_itoa.c
+SRV_C_FILES = server.c	ft_putnbr_fd.c
 CLN_C_FILES = client.c	ft_atoi.c	ft_isdigit.c	ft_itoa.c
 
 SRV_OBJ_FILES = $(SRV_C_FILES:%.c=%.o)

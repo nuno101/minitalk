@@ -6,11 +6,13 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:39:41 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 17:42:30 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/04 12:46:19 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	g_pid = 0;
 
 int	powerof2(int n)
 {
@@ -27,6 +29,27 @@ int	powerof2(int n)
 	return (power);
 }
 
+int	handle_char(int pid_found, int ascii_code)
+{
+	if (pid_found == 0)
+	{
+		if (ascii_code == 58)
+			pid_found = 1;
+		else
+			g_pid = g_pid * 10 + (ascii_code - 48);
+	}
+	else if (ascii_code == 4)
+	{
+		write(1, "\n", 1);
+		usleep(100);
+		kill(g_pid, SIGUSR1);
+		g_pid = 0;
+	}
+	else
+		write(1, &ascii_code, 1);
+	return (pid_found);
+}
+
 /*
  * decode 8 bit binary encoded characters
  * after each 8 bits received print the decoded character
@@ -35,12 +58,11 @@ void	binary2char(int bit)
 {
 	static int	n;
 	static int	sum;
-	static int	pid;
 	static int	pid_found;
 
 	if (!n)
 	{
-		if (!pid)
+		if (!g_pid)
 			pid_found = 0;
 		n = 8;
 		sum = 0;
@@ -48,25 +70,7 @@ void	binary2char(int bit)
 	sum += powerof2(n) * bit;
 	n--;
 	if (n == 0)
-	{
-		if (pid_found == 0)
-		{
-			if (sum == 58)
-				pid_found = 1;
-			else
-				pid = pid * 10 + (sum - 48);
-		}
-		else if (sum == 4)
-		{
-			sum = 10;
-			write(1, &sum, 1);
-			kill(pid, SIGUSR1);
-			n = 0;
-			pid = 0;
-		}
-		else
-			write(1, &sum, 1);
-	}
+		pid_found = handle_char(pid_found, sum);
 }
 
 /*
@@ -87,10 +91,9 @@ void	handle_signal(int sig)
  */
 int	main(void)
 {
-	ssize_t	pid;
-
-	pid = getpid();
-	ft_printf("Server PID: %i\n", pid);
+	write(1, "Server PID: ", 12);
+	ft_putnbr_fd(getpid(), 1);
+	write(1, "\n", 1);
 	while (1)
 	{
 		signal(SIGUSR1, handle_signal);

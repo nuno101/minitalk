@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: nlouro <nlouro@student.42heilbronnde>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 21:45:34 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/04 12:19:21 by nlouro           ###   ########.fr       */
+/*   Created: 2021/12/04 12:17:05 by nlouro            #+#    #+#             */
+/*   Updated: 2021/12/04 12:47:19 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-# include <unistd.h>
-# include <signal.h>
-# include "ft_isdigit.h"
-# include "ft_atoi.h"
-# include "ft_itoa.h"
-# include "ft_printf.h"
-# include "ft_putnbr_fd.h"
+#ifndef FT_PUTNBR_FD_H
+# define FT_PUTNBR_FD_H
+
+void	ft_putnbr_fd(int n, int fd);
 
 #endif
