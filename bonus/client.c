@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/03 17:34:39 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/04 09:55:24 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_signal(int sig)
 {
 	if (sig == SIGUSR1)
 	{
-		write(1, "SIGUSR1 received. Bye!\n", 24);
+		ft_printf("Message received. Bye!\n");
 		exit(1);
 	}
 }
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[])
 		ft_printf("\nERROR: pid is not a number\n");
 		return (2);
 	}
-	ft_printf("msg sent: %s\n", argv[2]);
+	ft_printf("Message sent: %s\n", argv[2]);
 	send_msg(server_pid, client);
 	send_msg(server_pid, ":");
 	send_msg(server_pid, argv[2]);
