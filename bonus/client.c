@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:38:59 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/04 09:55:24 by nlouro           ###   ########.fr       */
+/*   Updated: 2021/12/04 10:19:11 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,29 @@ void	send_msg(int pid, char *msg)
 	}
 }
 
+/*
+ * format a message to send
+ * prefix the user msg with the client program id followed by a : separator
+ * terminate with EOT character
+ */
+void	format_and_send_msg(int server_pid, char *msg)
+{
+	char	*client;
+	char	eot;
+
+	eot = 4;
+	client = ft_itoa(getpid());
+	ft_printf("Client PID: %s\n", client);
+	ft_printf("Sending message: %s\n", msg);
+	send_msg(server_pid, client);
+	send_msg(server_pid, ":");
+	send_msg(server_pid, msg);
+	send_msg(server_pid, &eot);
+}
+
+/*
+ * acknowledged message received by server and exit
+ */
 void	handle_signal(int sig)
 {
 	if (sig == SIGUSR1)
@@ -51,16 +74,12 @@ void	handle_signal(int sig)
 
 /*
  * parse user inputs as pid and message
+ * await message reception ackowledgement before exiting
  */
 int	main(int argc, char *argv[])
 {
 	int		server_pid;
-	char	*client;
-	char	eot;
 
-	eot = 4;
-	client = ft_itoa(getpid());
-	ft_printf("Client PID: %s\n", client);
 	if (argc != 3)
 	{
 		ft_printf("\nERROR: wrong args. Call as:\nclient <pid> \"<message>\"\n");
@@ -72,11 +91,7 @@ int	main(int argc, char *argv[])
 		ft_printf("\nERROR: pid is not a number\n");
 		return (2);
 	}
-	ft_printf("Message sent: %s\n", argv[2]);
-	send_msg(server_pid, client);
-	send_msg(server_pid, ":");
-	send_msg(server_pid, argv[2]);
-	send_msg(server_pid, &eot);
+	format_and_send_msg(server_pid, argv[2]);
 	while (1)
 	{
 		signal(SIGUSR1, handle_signal);
